@@ -46,7 +46,7 @@ public class CsvService {
     @Transactional
     public List<CsvInfo> saveCsvData(MultipartFile file) {
       List<CsvInfo> tosave = new ArrayList<>();
-      List<CsvInfo> tocsv = new ArrayList<>();
+      List<String> tocsv = new ArrayList<>();
       int success = 0;
       int fail = 0;
       int total = 0;
@@ -81,7 +81,7 @@ public class CsvService {
           || data[8].equals(new String()) || data[9].equals(new String())|| data[10].equals(new String()) )
           {
             fail = fail + 1;
-            tocsv.add(c);
+            tocsv.add(line);
           }
           else {
             csvRepository.saveAndFlush(c);
@@ -89,7 +89,7 @@ public class CsvService {
             tosave.add(c);
           }
         } else {
-          tocsv.add(c);
+          tocsv.add(line);
            fail = fail + 1;
         }
 
@@ -114,8 +114,8 @@ public class CsvService {
 
         // add data to csv
         for (int i = 0; i < tocsv.size(); i++) {
-    			CsvInfo elem = tocsv.get(i);
-          String[] datas = { elem.getA(), elem.getB(), elem.getC(), elem.getD(), elem.getE(), elem.getF(), elem.getG(), elem.getH(), elem.getI(), elem.getJ() };
+    			String elem = tocsv.get(i);
+          String[] datas =  elem.split(",");
           writer.writeNext(datas);
     		}
 
