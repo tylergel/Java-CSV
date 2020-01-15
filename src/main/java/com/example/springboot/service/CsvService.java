@@ -21,12 +21,27 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.transaction.annotation.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.opencsv.CSVWriter;
+import com.opencsv.bean.StatefulBeanToCsv;
+import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.io.IOException;
+import java.io.Writer;
+import java.io.OutputStreamWriter;
+import java.io.FileWriter;
+import java.io.File;
+import javax.servlet.http.HttpServletResponse;
 @Service
 public class CsvService {
-
+     private static final String OBJECT_LIST_SAMPLE = "./object-list-sample.csv";
+     private static final String STRING_ARRAY_SAMPLE = "./string-array-sample.csv";
     private static final Logger logger = LoggerFactory.getLogger(CsvService.class);
     @Autowired
     public CsvRepository csvRepository;
+    private HttpServletResponse response;
 
     @Transactional
     public List<CsvInfo> saveCsvData(MultipartFile file) {
@@ -69,11 +84,12 @@ public class CsvService {
             tocsv.add(c);
           }
           else {
-            csvRepository.save(c);
+            csvRepository.saveAndFlush(c);
             success = success + 1;
             tosave.add(c);
           }
         } else {
+          tocsv.add(c);
            fail = fail + 1;
         }
 
@@ -86,7 +102,29 @@ public class CsvService {
     logger.info("Received entries {}", total-1);
     logger.info("Successful entries {}", success);
     logger.info("Failed entries {}", fail);
+    String filePath = "ms3Interview-bad.csv";
+    File f = new File(filePath);
+    try {
+        FileWriter outputfile = new FileWriter(f);
 
+        CSVWriter writer = new CSVWriter(outputfile);
+
+        String[] header = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J" };
+        writer.writeNext(header);
+
+        // add data to csv
+        for (int i = 0; i < tocsv.size(); i++) {
+    			CsvInfo elem = tocsv.get(i);
+          String[] datas = { elem.getA(), elem.getB(), elem.getC(), elem.getD(), elem.getE(), elem.getF(), elem.getG(), elem.getH(), elem.getI(), elem.getJ() };
+          writer.writeNext(datas);
+    		}
+
+
+        writer.close();
+    }
+    catch (IOException e) {
+        e.printStackTrace();
+    }
     return tosave;
 
     }

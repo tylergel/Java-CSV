@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
-public interface CsvRepository extends CrudRepository<CsvInfo, String> {
+public interface CsvRepository extends JpaRepository<CsvInfo, String> {
 
     @Query(value = "select * from csv", nativeQuery = true)
     List<CsvInfo> getCsvInfo();

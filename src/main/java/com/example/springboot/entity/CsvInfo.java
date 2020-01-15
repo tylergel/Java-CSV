@@ -46,7 +46,39 @@ public class CsvInfo  {
       this.J = j;
     }
     public CsvInfo() {}
-    public String getData() {
-        return A;
-    }
+      public String getData() {
+          return A;
+      }
+
+      public String getA() {
+          return A;
+      }
+      public String getB() {
+          return B;
+      }
+      public String getC() {
+          return C;
+      }
+      public String getD() {
+          return D;
+      }
+      public String getE() {
+          return E;
+      }
+      public String getF() {
+          return F;
+      }
+      public String getG() {
+          return G;
+      }
+
+      public String getH() {
+          return H;
+      }
+      public String getI() {
+          return I;
+      }
+      public String getJ() {
+          return J;
+      }
 }
