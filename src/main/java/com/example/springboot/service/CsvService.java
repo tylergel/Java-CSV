@@ -91,7 +91,7 @@ public class CsvService {
       }
     catch(IOException ex) {}
     csvRepository.saveAll(tosave);
-    logger.info("Received entries {}", total-1);
+    logger.info("Received entries {}", total);
     logger.info("Successful entries {}", success);
     logger.info("Failed entries {}", fail);
     filename =filename.replace(".csv","");
