@@ -8,12 +8,12 @@ Here are the steps to install the app (For windows)
 
 https://howtodoinjava.com/maven/how-to-install-maven-on-windows/
 
-* Clone the repository
+* Clone/Download the repository
 * Ensure that you have Java downloaded http://www.oracle.com/technetwork/java/javase/downloads/index.html
 * Add correct JAVA_HOME paths: https://howtodoinjava.com/maven/how-to-install-maven-on-windows/
 * Download Maven: https://maven.apache.org/download.cgi
 * Add Maven Paths: https://howtodoinjava.com/maven/how-to-install-maven-on-windows/
-* Finally, open the command prompt and in the spring-boot-master folder run the command "mvn spring-boot:run"
+* Finally, open the command prompt and in the Java-CSV-master folder run the command "mvn spring-boot:run"
 
 This will start the application. Go to localhost:8080 to see the app running. It will give you a page to let you upload a file.
 
